@@ -1,5 +1,6 @@
 export const initialState = {
-  basket: ["milos", "ana"],
+  basket: [],
+  user: null,
 };
 
 // Selector
@@ -9,12 +10,14 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_BASKET":
       //logic for adding item to basket
-      return { state };
-      break;
+      //return curent state and changed basket + action.item
+      return {
+        ...state,
+        basket: [...state.basket, action.item],
+      };
     case "REMOVE_FROM_BASKET":
       //logic for removing item from basket
       return { state };
-      break;
     default:
       return state;
   }
