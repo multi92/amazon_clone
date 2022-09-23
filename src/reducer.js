@@ -4,33 +4,50 @@ export const initialState = {
 };
 
 // Selector
+export const getBasketTotal = (basket) =>
+  //increment all of prices in basket and start to 0-> return number
+  basket?.reduce((amount, item) => item.price + amount, 0);
 
 const reducer = (state, action) => {
   console.log(action);
   switch (action.type) {
     case "ADD_TO_BASKET":
-      //logic for adding item to basket
-      //return curent state and changed basket + action.item
       return {
         ...state,
         basket: [...state.basket, action.item],
       };
-    case "REMOVE_FROM_BASKET":
-      //logic for removing item from basket
-      //we cloned the basket
-      let newBasket = [...state.basket];
 
+    case "EMPTY_BASKET":
+      return {
+        ...state,
+        basket: [],
+      };
+
+    case "REMOVE_FROM_BASKET":
       const index = state.basket.findIndex(
         (basketItem) => basketItem.id === action.id
       );
+      let newBasket = [...state.basket];
+
       if (index >= 0) {
         newBasket.splice(index, 1);
       } else {
         console.warn(
-          `Cant remove product (id: ${action.id}) as its no in basket `
+          `Cant remove product (id: ${action.id}) as its not in basket!`
         );
       }
-      return { ...state, basket: newBasket };
+
+      return {
+        ...state,
+        basket: newBasket,
+      };
+
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.user,
+      };
+
     default:
       return state;
   }
