@@ -5,7 +5,7 @@ export const initialState = {
 
 // Selector
 export const getBasketTotal = (basket) =>
-  //increment all of prices in basket and start to 0-> return number
+  //increment all of prices in basket and start to 0
   basket?.reduce((amount, item) => item.price + amount, 0);
 
 const reducer = (state, action) => {
